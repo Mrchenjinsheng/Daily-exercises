@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 800px;
+            height: 480px;
+            background-color: brown;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+        }
+        .img-list{
+            width:0;
+            height: 480px;
+            background-color: blueviolet;
+            display: flex;
+            position: absolute;
+            left: 0;
+        }
+        .btn{
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
+            border: 0;
+            margin: 5px;
+            outline: none;
+        }
+        .btn:hover{
+            background-color: #f00
+        }
+        .btn-list{
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <button id="test">test</button>
+    <div class="container">
+        <div class="img-list">
+            <img class="img" src="./1.jpg" alt="">
+            <img class="img" src="./2.jpg" alt="">
+            <img class="img" src="./3.jpg" alt="">
+            <img class="img" src="./4.jpg" alt="">
+            <img class="img" src="./5.jpg" alt="">
+            <img class="img" src="./1.jpg" alt="">
+        </div>
+        <div class="btn-list">
+            <button class="btn"></button>
+            <button class="btn"></button>
+            <button class="btn"></button>
+            <button class="btn"></button>
+            <button class="btn"></button>
+        </div>
+        
+    </div>
+    <script>
+        window.onload = function() {
+            var container = document.querySelector('.container')
+            var imgList = document.querySelector('.img-list')
+            var imgAll = document.querySelectorAll('.img')
+            var btnList = document.querySelector('.btn-list')
+            var btnAll = document.querySelectorAll('.btn')
+            var test = document.querySelector('#test')
+            var index = 0;
+            imgList.style.width = imgAll.length * 800 + 'px'
+            btnList.style.left = (container.clientWidth - btnList.clientWidth)/2 + 'px';
+            btnAll[0].style.backgroundColor = '#f00'
+            // 为每个btn绑顶单击事件
+            for(var i=0;i<btnAll.length;i++){
+                btnAll[i].num = i
+                btnAll[i].onclick = function() {
+                    clearInterval(timer)
+                    index = this.num
+                    setBtn()
+                    move(imgList,'left',100,-800*index,function(){
+                        auto()
+                    })
+                }
+            }
+            // 设置btn点击后颜色和轮播结束后的瞬间跳转
+            function setBtn() {
+                if(index >= imgAll.length -1){
+                    index = 0;
+                    imgList.style.left = 0;
+                }
+                for(var i=0;i<btnAll.length;i++){
+                    btnAll[i].style.backgroundColor = ''
+                }
+                btnAll[index].style.backgroundColor = '#f00'
+            }
+            var timer
+            function auto() {
+                timer = setInterval(() => {
+                    index++
+                    index = index % imgAll.length
+                    move(imgList,'left',10,-800*index,function(){
+                        setBtn()
+                    })
+                }, 3000);
+            }
+            auto()
+            // 获取样式
+            function getStyel(obj,name){
+                if(window.currentStyle){
+                    return obj.currentStyle[name]
+                }else{
+                    return getComputedStyle(obj,false)[name]
+                }
+            }
+
+            // 动画
+            function move(obj,arrt,speed,target,callback){
+            clearInterval(obj.timer)
+            var current = parseInt(getStyel(obj,arrt))
+            if(current>target){
+                speed = -speed
+            }
+            obj.timer = setInterval(function() {
+                var oldValue = parseInt(getStyel(obj,arrt))
+                var newValue = oldValue + speed
+                if(speed > 0 && newValue >= target || speed < 0 && newValue <= target){
+                    newValue = target
+                }
+                obj.style[arrt] = newValue + 'px'
+                if(newValue === target){
+                    clearInterval(obj.timer)
+                    callback && callback()
+                }
+            },30)
+            
+        }
+            
+           
+            
+        }
+    </script>
+</body>
+</html>
