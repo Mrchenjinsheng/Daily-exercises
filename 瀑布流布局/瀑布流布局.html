@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: #dedede;
+        }
+        .container{
+            width: 60%;
+            margin: 0 auto;
+            display: flex;
+        }
+        .item{
+            flex: 1;
+            margin: 16px;
+        }
+        .item img{
+            width: 100%;
+            border: 10px solid #fff;
+            margin-top: 10px;
+            transition: all .2s ease-in-out
+        }
+        .item img:hover{
+            transform: scale(1.1);
+            cursor: pointer;
+            box-shadow: 0 3px 2px 1px  #aaa;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="item" id="item1">
+        </div>
+        <div class="item"id="item2">
+        </div>
+        <div class="item"id="item3">
+        </div>
+        <div class="item" id="item4">
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+
+            function waterFall(){
+
+                //获取所有的item
+                var item1 = document.querySelector('#item1')
+                var item2 = document.querySelector('#item2')
+                var item3 = document.querySelector('#item3')
+                var item4 = document.querySelector('#item4')
+                // 获取对应item里面所有图片
+                var imgList1 = item1.children
+                var imgList2 = item2.children
+                var imgList3 = item3.children
+                var imgList4 = item4.children
+
+                // 计算总高度
+                function getHeight(obj) {
+                    var result = 0;
+                    for(var i=0;i<obj.length;i++){
+                        result += obj[i].height
+                    }
+                    return result
+                }
+
+                //获取每个item所有图片的高度
+                var img1height = getHeight(imgList1)
+                var img2height = getHeight(imgList2)
+                var img3height = getHeight(imgList3)
+                var img4height = getHeight(imgList4)
+
+                // 获取最小高度
+                var minHeight = Math.min(img1height,img2height,img3height,img4height)
+
+                // 通过比较最小高度,获取对应的item
+                if(minHeight === img1height){
+                    return item1
+                }else if(minHeight === img2height){
+                    return item2
+                }else if(minHeight === img3height){
+                    return item3
+                }else if(minHeight === img4height){
+                    return item4
+                }
+
+            }
+
+            
+            // 设定停止高度
+            var winHeight = screen.height + 500
+            var imgName = 1
+            var timer = setInterval(function() {
+                if(document.documentElement.scrollHeight > winHeight){
+                    clearInterval(timer)
+                }
+                
+                var img = document.createElement('img')
+                imgName++
+                if(imgName > 15){
+                    imgName = 1
+                }
+                img.setAttribute('src','./' + imgName + '.jpg')
+                waterFall().appendChild(img)
+            },0)
+
+
+        }
+    </script>
+</body>
+</html>
