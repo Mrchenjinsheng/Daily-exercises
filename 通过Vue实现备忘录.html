@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <style>
+        body{
+            background-color: #ccc
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-content: center;
+            width: 600px;
+            margin: 100px auto;
+            font-size: 20px;
+        }
+        .header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 500px;
+            background-color: #333;
+            padding: 0 20px;
+        }
+        .header p,
+        .title p{
+            font-size: 30px;
+        }
+        .header p{
+            color:#fff;
+            margin: 10px 0;
+        }
+        .header input{
+            width: 200px;
+            height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 0 10px;
+            outline: none;
+        }
+        .ing,.ed{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 500px;
+            padding: 0 20px;
+            position: relative;
+        }
+        .title{
+            display: flex;
+            justify-content: space-between;
+        }
+        .item{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: #fff;
+            margin:10px -20px;
+            padding:0 15px;
+            border-radius: 5px;
+            border-left:5px solid #035e26;
+        }
+        .item input{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .item a{
+            text-decoration: none;
+            color: #000;
+            position: absolute;
+            right: 20px;
+        }
+        .ed .item{
+            opacity: .5;
+        }
+        .item p{
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="header">
+                <p>TodoingList</p>
+                <input type="text" @keydown="add" v-model="todo" placeholder="添加Todo">
+            </div>
+            <div class="ing">
+                <div class="title">
+                    <p>正在进行</p>
+                    <p>{{ingList.length}}</p>
+                </div>
+                <div class="item" v-for="item in ingList" :key = "item.id"><!--通过循环添加正在进行-->
+                    <input type="checkbox" @click = "accomplish(item.id)" >
+                    <p>{{item.lemma}}</p>
+                    <a href="javascript:;" @click.prevent = "ingDel(item.id)">删除</a>
+                </div>
+            </div>
+            <div class="ed">
+                    <div class="title">
+                        <p>已经完成</p>
+                        <p>{{edList.length}}</p>
+                    </div>
+                    <div class="item" v-for='item in edList' :key = "item.id"><!--过循环添加已经完成过-->
+                        <input type="checkbox" @click = 'underway(item.id)' checked=true>
+                        <p>{{item.lemma}}</p>
+                        <a href="javascript:;" @click = edDel(item.id)>删除</a>
+                    </div>
+                    
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                todo:'',
+                count:0,  //id计数
+                ingList:[ //正在进行列表数据
+                ],
+                edList:[//已经完成列表数据
+                ]
+            },
+            methods: {
+                add(event){//添加备注的方法
+                    var e = event || window.event
+                    if(e.keyCode === 13){
+                        this.count +=1
+                        this.ingList.push({id:this.count,lemma:this.todo})
+                        this.todo = ''
+                    }
+                },
+                ingDel(id){//删除正在进行的方法
+                    this.ingList.some((item,i) => {
+                        if(item.id === id){
+                            this.ingList.splice(i,1)
+                            return true
+                        }
+                    })
+                },
+                edDel(id){//删除已经完成的方法
+                    console.log(this.edList)
+                    this.edList.some((item,i) => {
+                        if(item.id === id){
+                            this.edList.splice(i,1)
+                            return true
+                        }
+                    })
+                },
+                accomplish(id){//正在进行转已经完成的方法
+                    this.ingList.some((item,i) => {
+                        if(item.id == id){
+                            this.edList.push({id:item.id,lemma:item.lemma})
+                            this.ingList.splice(i,1)
+                            return true
+                        }
+                    })
+                },
+                underway(id){//已经完成转正在进行的方法
+                    this.edList.some((item,i) => {
+                        if(item.id === id){
+                            this.ingList.push({id:item.id,lemma:item.lemma})
+                            this.edList.splice(i,1)
+                            return true
+                        }
+                    })
+                }
+            },
+        })
+    </script>
+</body>
+</html>
