@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 200px;
+            height: 200px;
+        }
+        .left,.right{
+            width: 100px;
+            height: 200px;
+            overflow: hidden;
+            position: absolute;
+        }
+        .left{
+            left: 0;
+        }
+        .right{
+            right: 0;
+        }
+        .loop-left,.loop-right{
+            width: 160px;
+            height: 160px;
+            border: 20px solid transparent;
+            border-radius: 50%;
+            position: absolute;
+            transform: rotate(-135deg);
+        }
+        .loop-left{
+            left: 0;
+            border-left: 20px solid #3498db;
+            border-bottom: 20px solid #3498db;
+            animation: left-progress 3s linear infinite;
+        }
+        .loop-right{
+            right: 0;
+            border-top: 20px solid #3498db;
+            border-right: 20px solid #3498db;
+            animation: right-progress 3s linear infinite;
+        }
+        @keyframes left-progress {
+            0%,50%{
+                transform: rotate(-135deg)
+            }
+            100%{
+                transform: rotate(45deg)
+            }
+        }
+        @keyframes right-progress {
+            0%{
+                transform: rotate(-135deg)
+            }
+            50%,100%{
+                transform: rotate(45deg)
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="loop-left"></div>
+        </div>
+        <div class="right">
+            <div class="loop-right"></div>
+        </div>
+    </div>
+</body>
+</html>
