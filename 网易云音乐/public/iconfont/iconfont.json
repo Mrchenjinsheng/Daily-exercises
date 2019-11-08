@@ -1,0 +1,37 @@
+{
+  "id": "1466440",
+  "name": "网易云",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "856112",
+      "name": "播放",
+      "font_class": "bofang",
+      "unicode": "e771",
+      "unicode_decimal": 59249
+    },
+    {
+      "icon_id": "2536508",
+      "name": "播放",
+      "font_class": "bofang1",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "2672194",
+      "name": "耳机",
+      "font_class": "erji",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "8032441",
+      "name": "网易云音乐",
+      "font_class": "wangyiyunyinle",
+      "unicode": "e9ac",
+      "unicode_decimal": 59820
+    }
+  ]
+}

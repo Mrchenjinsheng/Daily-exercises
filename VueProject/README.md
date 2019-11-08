@@ -19,4 +19,5 @@
        左右滑动选显卡正常工作需要去除严格模式，需要添加babel-plugin-transform-remove-strict-mode,
        并且在.babelrc中配置{ "plugins":["transform-remove-strict-mode"] }
     2. 图片无法设置100%,可以通过去除scoped属性解决。 
-    3. 在webpack.config.js中的devSever中添加host:本机IP地址,可以通过和本机在同一无线网的手机查看页面相关内容。
+    3. 路由变化页面不刷,是由于路由懒加载推出页面再进入另一个页面,不会运行created生命周期导致数据还是第一次的数据,使用watch监听路由变化可解决。
+    4. 在webpack.config.js中的devSever中添加host:本机IP地址,可以通过和本机在同一无线网的手机查看页面相关内容。

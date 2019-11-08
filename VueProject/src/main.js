@@ -93,8 +93,6 @@ const store = new Vuex.Store({
       updataSelected(state,data) {
         state.cart.some(item => {
           if(item.id == data.id){
-            console.log(item)
-            console.log(data)
             item.selected = data.selected
             return true
           }
