@@ -6,25 +6,25 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "856112",
-      "name": "播放",
-      "font_class": "bofang",
-      "unicode": "e771",
-      "unicode_decimal": 59249
-    },
-    {
-      "icon_id": "2536508",
-      "name": "播放",
-      "font_class": "bofang1",
-      "unicode": "e631",
-      "unicode_decimal": 58929
-    },
-    {
       "icon_id": "2672194",
       "name": "耳机",
       "font_class": "erji",
       "unicode": "e654",
       "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "6536730",
+      "name": "暂停",
+      "font_class": "zanting",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "6536736",
+      "name": "播放",
+      "font_class": "bofang",
+      "unicode": "e667",
+      "unicode_decimal": 58983
     },
     {
       "icon_id": "8032441",

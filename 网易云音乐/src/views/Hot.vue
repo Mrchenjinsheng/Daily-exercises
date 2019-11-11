@@ -4,8 +4,9 @@
             <img :src="info.coverImgUrl" alt="">
             <p ref='update'>更新日期:&nbsp;&nbsp;{{ new Date(info.trackUpdateTime) | dateFormat('MM月DD') }}</p>
         </div>
+        <!-- <el-button type="primary" @click="playingAll">播放全部</el-button> -->
         <div  class="item">
-            <div  v-for="(item,index) in hotList" :key="item.id" class="item-list" @click="goSonger(item.id,index)">
+            <div  v-for="(item,index) in hotList" :key="item.id" class="item-list" @click="goPlayer(item.id,index)">
                 <div class="left">
                     <p class="song">{{ item.name }}</p>
                     <p class="author">{{ item.ar[0].name + "-" + item.al.name }}</p>
@@ -54,9 +55,13 @@ export default {
             this.hotList = JSON.parse(localStorage.getItem('hotList')).slice(0,this.hotCount += 10)
         },
         // 跳转播放界面
-        goSonger(id,index) {
-            this.$router.push('/songer/' + id)
-            sessionStorage.setItem('songInfo',JSON.stringify(this.hotList[index]))
+        goPlayer(id,index) {
+            localStorage.setItem('songInfo',JSON.stringify(this.hotList[index]))
+            this.$store.state.songInfo = this.hotList[index]
+        },
+        playingAll() {
+            this.$store.state.hotList = JSON.parse(localStorage.getItem('hotList'))
+            console.log(this.$store.state.hotList)
         }
     },
     
@@ -65,6 +70,7 @@ export default {
 
 <style lang="scss" scoped>
     .hot{
+        padding-bottom: 60px;
         .banner{
             position: relative;
             img{

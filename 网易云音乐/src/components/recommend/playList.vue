@@ -31,7 +31,7 @@
         </div>
         <!-- 歌单 -->
         <div class="list">
-            <div class="item-list" v-for="(item,index) in musicList" :key="item.id" @click="goSonger(item.id,index)">
+            <div class="item-list" v-for="(item,index) in musicList" :key="item.id" @click="goPlayer(item.id,index)">
                 <div class="left">
                     <p class="song">{{ item.name }}</p>
                     <p class="author">{{ item.artists[0].name  + "-" + item.album.name }}</p>
@@ -85,9 +85,9 @@ export default {
         },
 
         //跳转音乐播放界面
-        goSonger(id,index) {
-            this.$router.push('/songer/' + id)
-            sessionStorage.setItem('songInfo',JSON.stringify(this.info.tracks[index]))
+        goPlayer(id,index) {
+            localStorage.setItem('songInfo',JSON.stringify(this.info.tracks[index]))
+            this.$store.state.songInfo = this.info.tracks[index]
         },
         //获取更多
         getMore() {

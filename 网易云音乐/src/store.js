@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    songInfo:JSON.parse(localStorage.getItem('songInfo')),
+    hotList:null
   },
   mutations: {
 

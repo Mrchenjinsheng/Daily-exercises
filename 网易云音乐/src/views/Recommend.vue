@@ -20,7 +20,7 @@
         <div class="new-music">
             <p class="title">最新音乐</p>
             <div class="item" >
-                <div class="item-list" v-for="(item,index) in newMusic" :key="item.id" @click="goSonger(item.id,index)">
+                <div class="item-list" v-for="(item,index) in newMusic" :key="item.id" @click="goPlayer(item.id,index)">
                     <div class="left">
                         <p class="song">{{ item.name }}</p>
                         <p class="author">{{ item.song.artists[0].name  + "-" + item.song.album.name }}</p>
@@ -81,9 +81,9 @@ export default {
         },
         
         // 跳转播放界面
-        goSonger(id,index) {
-            this.$router.push('/songer/' + id)
-            sessionStorage.setItem('songInfo',JSON.stringify(this.newMusic[index]))
+        goPlayer(id,index) {
+            localStorage.setItem('songInfo',JSON.stringify(this.newMusic[index]))
+            this.$store.state.songInfo = this.newMusic[index]
         }
     },    
 }
@@ -92,6 +92,7 @@ export default {
 
 <style lang="scss" scoped>
     .home{
+        padding-bottom: 60px;
         .recommend,
         .new-music{
             .title{

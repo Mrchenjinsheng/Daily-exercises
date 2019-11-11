@@ -11,7 +11,7 @@
 
         <!-- 搜索结果列表 -->
         <div class="item" v-show="musicToggle">
-            <div class="item-list" v-for="(item,index) in info.songs" :key="item.id" @click="goSonger(item.id,index)">
+            <div class="item-list" v-for="(item,index) in info.songs" :key="item.id" @click="goPlayer(item.id,index)">
                 <div class="left">
                     <p class="song">{{ item.name }}</p>
                     <p class="author">{{ item.artists[0].name + "-" + item.album.name}}</p>
@@ -137,9 +137,9 @@ export default {
         },
 
 
-        goSonger(id,index) {
-            this.$router.push('/songer/' + id)
-            sessionStorage.setItem('songInfo',JSON.stringify(this.info.songs[index]))
+        goPlayer(id,index) {
+            this.$store.state.songInfo = this.info.songs[index]
+            localStorage.setItem('songInfo',JSON.stringify(this.info.songs[index]))
         }
     },
     watch: {
@@ -156,6 +156,7 @@ export default {
 
 <style lang="scss" scoped>
     .search{
+        padding-bottom: 60px;
         .el-input{
             padding: 10px 0;
             border-bottom: 1px solid #f0f0f0;

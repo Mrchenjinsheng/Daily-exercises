@@ -48,9 +48,8 @@ export default {
     methods: {
         //获取歌曲信息
         getSongInfo() {
-            this.songInfo = JSON.parse(sessionStorage.getItem('songInfo'))
+            this.songInfo = this.$store.state.songInfo
             this.src = `https://music.163.com/song/media/outer/url?id=${ this.songInfo.id }.mp3`
-            
             if(this.songInfo.album){
                 this.picUrl = this.songInfo.album.blurPicUrl
                 this.author = this.songInfo.artists[0].name
@@ -120,6 +119,7 @@ export default {
 
 <style lang="scss" scoped>
     .songer{
+        width: 100%;
         min-height: 100vh;
         box-sizing: border-box;
         background-image: linear-gradient( 135deg, #FFCF71 10%, #2376DD 100%);
