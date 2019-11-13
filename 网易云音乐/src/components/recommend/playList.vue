@@ -29,6 +29,7 @@
                 <el-tag v-for="item in info.tags" :key="item" type="success" effect="plain">{{ item }}</el-tag>
             </div>
         </div>
+        <el-button type="primary" @click="playingAll">播放全部</el-button>
         <!-- 歌单 -->
         <div class="list">
             <div class="item-list" v-for="(item,index) in musicList" :key="item.id" @click="goPlayer(item.id,index)">
@@ -102,7 +103,11 @@ export default {
         goBack() {
             this.$router.go(-1)
         },
-        
+        playingAll() {
+            localStorage.setItem('songInfo',JSON.stringify(this.info.tracks))
+            this.$store.state.songInfo = this.info.tracks
+            this.$store.state.index = 0
+        }
 
     },
 }
@@ -110,6 +115,7 @@ export default {
 
 <style lang="scss" scoped>
     .play-list{
+        padding-bottom: 60px;
         p{
             margin: 0;
             padding: 0;

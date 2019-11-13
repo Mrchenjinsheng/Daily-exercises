@@ -8,7 +8,7 @@
         </div>
 
         <!-- 被隐藏的播放器 -->
-        <audio :src="src" controls autoplay ref="audio" v-show="false"></audio>
+        <!-- <audio :src="src" controls autoplay ref="audio" v-show="false"></audio> -->
 
         <!-- 唱片机 -->
         <div class="machine clearfix">

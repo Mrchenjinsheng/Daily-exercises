@@ -40,6 +40,7 @@ import axios from 'axios'
 Vue.prototype.axios = axios
 axios.defaults.baseURL = '/api/'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.withCredentials = true
 
 //时间格式化插件
 import moment from 'moment'

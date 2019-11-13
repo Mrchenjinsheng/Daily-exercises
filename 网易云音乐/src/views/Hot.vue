@@ -4,7 +4,7 @@
             <img :src="info.coverImgUrl" alt="">
             <p ref='update'>更新日期:&nbsp;&nbsp;{{ new Date(info.trackUpdateTime) | dateFormat('MM月DD') }}</p>
         </div>
-        <!-- <el-button type="primary" @click="playingAll">播放全部</el-button> -->
+        <el-button type="primary" @click="playingAll">播放全部</el-button>
         <div  class="item">
             <div  v-for="(item,index) in hotList" :key="item.id" class="item-list" @click="goPlayer(item.id,index)">
                 <div class="left">
@@ -60,8 +60,8 @@ export default {
             this.$store.state.songInfo = this.hotList[index]
         },
         playingAll() {
-            this.$store.state.hotList = JSON.parse(localStorage.getItem('hotList'))
-            console.log(this.$store.state.hotList)
+            localStorage.setItem('songInfo',JSON.stringify(this.hotList))
+            this.$store.state.songInfo = JSON.parse(localStorage.getItem('hotList'))
         }
     },
     
