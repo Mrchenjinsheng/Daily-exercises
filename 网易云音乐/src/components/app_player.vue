@@ -28,6 +28,8 @@ export default {
             src: '',             //歌曲url  
             picUrl: '',          //唱片图片
             playing: "iconfont icon-bofang",     //播放暂停键切换 
+            timer: '',
+            timerOut: ''
         }
     },
     created() {
@@ -73,10 +75,8 @@ export default {
         },
         //歌曲播放
         rotate() {
-            let timer
-            let timerOut
-            clearTimeout(timer)             //开启定时器前先关闭定时器，防止开启多个定时器
-            clearTimeout(timerOut)
+            clearTimeout(this.timer)             //开启定时器前先关闭定时器，防止开启多个定时器
+            clearTimeout(this.timerOut)
 
             let record = this.$refs.record
             let audio = this.$refs.audio
@@ -90,7 +90,7 @@ export default {
             
             //如果播放列表有多首歌曲   则播放完当前歌曲后自动切换下一首
             if(Array.isArray(this.songInfo[0])){
-                timerOut = setTimeout(() => {   //因为列表多首切换时歌曲时间和已播放时间获取早于播放器src引入，所以通过定时器延后歌曲时间和已播放时间的获取
+                this.timerOut = setTimeout(() => {   //因为列表多首切换时歌曲时间和已播放时间获取早于播放器src引入，所以通过定时器延后歌曲时间和已播放时间的获取
                     let duration = audio.duration
                     let currentTime = audio.currentTime
                     let gap = ( duration - currentTime ) * 1000
@@ -98,13 +98,13 @@ export default {
                     console.log(duration)
                     console.log(currentTime)
                     console.log(gap)
-                    timer = setTimeout(() => {
+                    this.timer = setTimeout(() => {
                         this.$store.commit('index_add')
                     },gap)
                 },5000)
             }else{
                 //如果播放列表只有一首歌曲，则播放完毕当前歌曲之后停止图片旋转，并把停止图标切换为播放图标
-                timer = setTimeout(() => {
+                this.timer = setTimeout(() => {
                     audio.pause()
                     record.style.animationPlayState = "paused" 
                     this.playing ="iconfont icon-bofang"
@@ -123,6 +123,8 @@ export default {
                 audio.pause()                                           //播放器停止播放
                 this.playing = "iconfont icon-bofang"                   //修改播放按钮为播放状态
                 record.style.animationPlayState = "paused"              //唱片旋转停止
+                clearTimeout(this.timer)                                //定时器
+                clearTimeout(this.timerOut)                             //定时器
             }
             
         },

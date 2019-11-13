@@ -128,7 +128,7 @@ export default {
                     p{
                         font-size: 12px;
                         padding: 0 5px;
-                        height: 2.5em;
+                        height: 2.8em;
                         overflow: hidden;
                     }
 
